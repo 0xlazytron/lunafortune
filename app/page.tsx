@@ -129,9 +129,11 @@ export default function Home() {
         <div className="app-wrapper__bg" />
 
         <header data-v-ba98396c="" data-v-88196f00="" className="header header__wrapper">
-          <picture data-v-09a91d5b="" data-v-ba98396c="" className="header__logo">
-            <img data-v-09a91d5b="" className="logo" src="/assets/images/logo/logo.svg" alt="Logo: 1win" />
-          </picture>
+          <div className="header__logo-card">
+            <picture data-v-09a91d5b="" data-v-ba98396c="" className="header__logo">
+              <img data-v-09a91d5b="" className="logo" src="/assets/images/logo/logo.svg" alt="Logo: 1win" />
+            </picture>
+          </div>
 
           <div data-v-ba98396c="" className="header__account">
             <div data-v-8fb44ac0="" data-v-ba98396c="" className="dropdown header__select-lang">
@@ -146,7 +148,7 @@ export default function Home() {
               </button>
             </div>
 
-            <p data-v-5e81c9f5="" data-v-ba98396c="" className="have-an-account have-an-account_inside_header">
+            <a href="https://mrlunacasino.com" target="_blank" rel="noopener noreferrer" data-v-5e81c9f5="" data-v-ba98396c="" className="have-an-account have-an-account_inside_header">
               <span data-v-5e81c9f5="" className="have-an-account__description" tabIndex={0}>
                 <span data-v-5e81c9f5="" className="have-an-account__question">Already have an account?</span>
                 <span data-v-5e81c9f5="" className="have-an-account__link">Go to the website</span>
@@ -156,7 +158,7 @@ export default function Home() {
                 <rect data-v-f6adb99e="" width="19" height="19" fill="#D8D8D8" opacity=".01" rx="2" transform="matrix(-1 0 0 1 27 8)"></rect>
                 <path data-v-f6adb99e="" fill="#000" fillRule="evenodd" d="m18.39 11.42 5.2 5.2c.4.4.4 1.06 0 1.47l-5.2 5.2a1.04 1.04 0 0 1-1.47-1.47l3.42-3.43h-8.9a1.04 1.04 0 1 1 0-2.08h8.9l-3.42-3.42a1.04 1.04 0 0 1 0-1.47c.4-.41 1.06-.41 1.47 0Z" clipRule="evenodd"></path>
               </svg>
-            </p>
+            </a>
           </div>
         </header>
 
@@ -242,12 +244,12 @@ export default function Home() {
         </div>
 
         <footer data-v-f0e69d08="" data-v-88196f00="" className="footer footer__wrapper">
-          <p data-v-5e81c9f5="" data-v-f0e69d08="" className="have-an-account footer__select-lang">
+          <a href="https://mrlunacasino.com" target="_blank" rel="noopener noreferrer" data-v-5e81c9f5="" data-v-f0e69d08="" className="have-an-account footer__select-lang">
             <span data-v-5e81c9f5="" className="have-an-account__description" tabIndex={0}>
               <span data-v-5e81c9f5="" className="have-an-account__question">Already have an account?</span>
               <span data-v-5e81c9f5="" className="have-an-account__link">Go to the website</span>
             </span>
-          </p>
+          </a>
           <span data-v-896b25e0="" data-v-f0e69d08="" className="text text_theme-light footer__text">© 2025 MrLuna Casino | All rights reserved</span>
         </footer>
       </div>

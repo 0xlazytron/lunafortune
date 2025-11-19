@@ -28,6 +28,10 @@ html {
   .main {
     margin-bottom: 0;
   }
+  .phone-input__code {
+    width: 72px;
+    padding: 12px;
+  }
 }
 
 @media (min-width: 768px) {
@@ -171,6 +175,28 @@ html {
   .header {
     margin-bottom: 0;
   }
+}
+
+/* Glassmorphic card for top-left logo */
+.header__logo-card {
+  display: inline-flex;
+  padding: 6px 10px;
+  border-radius: 16px;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.18),
+    rgba(255, 255, 255, 0.08)
+  );
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  width: fit-content;
+  justify-self: start;
+  align-self: start;
+}
+
+.header__logo-card .logo {
+  height: 32px;
 }
 
 /* Main content - Match Original Layout */
@@ -535,6 +561,7 @@ html {
 .phone-input {
   display: flex;
   gap: 8px;
+  width: 100%;
 }
 
 .phone-input__code {
@@ -565,6 +592,7 @@ html {
   font-weight: 500;
   transition: all 0.2s;
   font-family: "Poppins", sans-serif;
+  min-width: 0;
 }
 
 .phone-input__number:focus {
@@ -861,6 +889,9 @@ html {
   }
   .modal-registration__text_xxl {
     font-size: 18px !important;
+  }
+  .decor__gold-jug {
+    left: 271px !important;
   }
 }
 
