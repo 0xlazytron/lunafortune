@@ -848,6 +848,21 @@ html {
     background-size: cover !important;
   }
 }
+@media (min-width: 340px) and (max-width: 413px) {
+  .modal-registration__header {
+    margin-top: 30px;
+  }
+  .modal-registration__wrap {
+    top: 84px;
+  }
+  .modal-registration__bonus-wrapper {
+    bottom: 33px;
+    font-size: 10px !important;
+  }
+  .modal-registration__text_xxl {
+    font-size: 18px !important;
+  }
+}
 
 /* Footer - Absolute positioned at bottom like original */
 .footer {
