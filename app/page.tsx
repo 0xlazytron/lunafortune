@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import './globals.css';
 import Loader from './components/Loader';
 import PrizeBadge from './components/PrizeBadge';
@@ -33,6 +33,35 @@ export default function Home() {
     }, 2000);
     return () => clearTimeout(timer);
   }, []);
+
+  const lockedScrollYRef = useRef(0);
+  useEffect(() => {
+    if (showRegistrationModal) {
+      lockedScrollYRef.current = window.scrollY || 0;
+      document.body.style.position = 'fixed';
+      document.body.style.top = `-${lockedScrollYRef.current}px`;
+      document.body.style.width = '100%';
+      document.body.style.overflow = 'hidden';
+      document.documentElement.style.overflow = 'hidden';
+    } else {
+      const y = Math.abs(parseInt(document.body.style.top || '0', 10)) || lockedScrollYRef.current;
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.width = '';
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+      window.scrollTo(0, y);
+    }
+    return () => {
+      const y = Math.abs(parseInt(document.body.style.top || '0', 10)) || lockedScrollYRef.current;
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.width = '';
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+      window.scrollTo(0, y);
+    };
+  }, [showRegistrationModal]);
 
   const spinWheel = () => {
     if (spinning || tries <= 0) return;
@@ -183,7 +212,7 @@ export default function Home() {
               <span data-v-01b565ea="" className="wheel-button__container">
                 <span data-v-01b565ea="" className="wheel-button__main-circle">
                   <span data-v-01b565ea="" className="wheel-button__inner-circle"></span>
-                  <span data-v-896b25e0="" data-v-01b565ea="" className="text text_theme-pink text_font-family-halvarbreit text_uppercase wheel-button__text" fontWeight="black" fontSize="lg">
+                  <span data-v-896b25e0="" data-v-01b565ea="" className="text text_theme-pink text_font-family-halvarbreit text_uppercase wheel-button__text">
                     SPIN
                   </span>
                 </span>
@@ -194,7 +223,7 @@ export default function Home() {
 
             <div data-v-d588f77d="" className="counter-of-spin">
               <p data-v-d588f77d="" className="counter-of-spin__text-wrapper">
-                <span data-v-896b25e0="" data-v-d588f77d="" className="text text_theme-default text_font-family-halvarbreit text_uppercase counter-of-spin__text counter-of-spin__text_md" fontWeight="black">REMAINING</span>
+                <span data-v-896b25e0="" data-v-d588f77d="" className="text text_theme-default text_font-family-halvarbreit text_uppercase counter-of-spin__text counter-of-spin__text_md">REMAINING</span>
                 <span data-v-896b25e0="" data-v-d588f77d="" className="text text_theme-default text_font-family-halvarbreit text_uppercase counter-of-spin__text counter-of-spin__text_lg">{tries} {tries === 1 ? 'TRY' : 'TRIES'}</span>
               </p>
             </div>

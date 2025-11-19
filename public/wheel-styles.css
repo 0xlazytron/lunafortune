@@ -1685,17 +1685,12 @@ input {
   justify-content: center;
   width: 232px;
   height: 88px;
+  /* left: 32%; */
   pointer-events: none;
   background-image: -webkit-image-set(
-    url(/assets/images/items/lunawheel.png) 1x,
-    url(/assets/images/items/game_title%402x.avif) 2x,
-    url(/assets/images/items/game_title%403x.avif) 3x
+    url(/assets/images/items/lunawheel.webp) 1x
   );
-  background-image: image-set(
-    url(/assets/images/items/game_title.avif) 1x,
-    url(/assets/images/items/game_title%402x.avif) 2x,
-    url(/assets/images/items/game_title%403x.avif) 3x
-  );
+  background-image: image-set(url(/assets/images/items/lunawheel.webp) 1x);
   background-repeat: no-repeat;
   background-size: contain;
   position: absolute;
@@ -1707,54 +1702,36 @@ input {
   .name__wheel[data-v-abb2d16f] {
     width: 256px;
     height: 92px;
-    top: 87px;
-    right: 193px;
+    top: 65px;
+    right: 168px;
     background-image: -webkit-image-set(
-      url(/assets/images/items/game_title_768.avif) 1x,
-      url(/assets/images/items/game_title_768%402x.avif) 2x,
-      url(/assets/images/items/game_title_768%403x.avif) 3x
+      url(/assets/images/items/lunawheel.png) 1x
     );
-    background-image: image-set(
-      url(/assets/images/items/game_title_768.avif) 1x,
-      url(/assets/images/items/game_title_768%402x.avif) 2x,
-      url(/assets/images/items/game_title_768%403x.avif) 3x
-    );
+    background-image: image-set(url(/assets/images/items/lunawheel.webp) 1x);
   }
 }
 @media all and (min-width: 1024px) {
   .name__wheel[data-v-abb2d16f] {
     width: 365px;
     height: 117px;
-    top: 102px;
-    right: 236px;
+    top: 94px;
+    right: 182px;
     background-image: -webkit-image-set(
-      url(/assets/images/items/game_title_1024.avif) 1x,
-      url(/assets/images/items/game_title_1024%402x.avif) 2x,
-      url(/assets/images/items/game_title_1024%403x.avif) 3x
+      url(/assets/images/items/lunawheel.png) 1x
     );
-    background-image: image-set(
-      url(/assets/images/items/game_title_1024.avif) 1x,
-      url(/assets/images/items/game_title_1024%402x.avif) 2x,
-      url(/assets/images/items/game_title_1024%403x.avif) 3x
-    );
+    background-image: image-set(url(/assets/images/items/lunawheel.webp) 1x);
   }
 }
 @media all and (min-width: 1440px) {
   .name__wheel[data-v-abb2d16f] {
     width: 414px;
     height: 157px;
-    top: 97px;
-    right: 278px;
+    top: 100px;
+    right: 254px;
     background-image: -webkit-image-set(
-      url(/assets/images/items/game_title_1440.avif) 1x,
-      url(/assets/images/items/game_title_1440%402x.avif) 2x,
-      url(/assets/images/items/game_title_1440%403x.avif) 3x
+      url(/assets/images/items/lunawheel.webp) 1x
     );
-    background-image: image-set(
-      url(/assets/images/items/game_title_1440.avif) 1x,
-      url(/assets/images/items/game_title_1440%402x.avif) 2x,
-      url(/assets/images/items/game_title_1440%403x.avif) 3x
-    );
+    background-image: image-set(url(/assets/images/items/lunawheel.webp) 1x);
   }
 }
 @media all and (min-width: 1920px) {
@@ -1764,15 +1741,9 @@ input {
     top: 118px;
     right: 310px;
     background-image: -webkit-image-set(
-      url(/assets/images/items/lunawheel.webp) 1x,
-      url(/assets/images/items/game_title_1920%402x.avif) 2x,
-      url(/assets/images/items/game_title_1920%403x.avif) 3x
+      url(/assets/images/items/lunawheel.webp) 1x
     );
-    background-image: image-set(
-      url(/assets/images/items/lunawheel.webp) 1x,
-      url(/assets/images/items/game_title_1920%402x.avif) 2x,
-      url(/assets/images/items/game_title_1920%403x.avif) 3x
-    );
+    background-image: image-set(url(/assets/images/items/lunawheel.webp) 1x);
   }
 }
 .bonus[data-v-8f9b418c] {
@@ -6281,9 +6252,9 @@ input {
     width: 350px;
     height: 500px;
     z-index: 2;
-    bottom: -180px;
+    bottom: 150px;
     right: auto;
-    left: -50px;
+    left: -24px;
   }
 }
 @media all and (min-width: 1024px) {
@@ -6301,9 +6272,9 @@ input {
     width: 380px;
     height: 550px;
     z-index: -1;
-    bottom: -120px;
+    bottom: 70px;
     right: auto;
-    left: -138px;
+    left: -20px;
   }
 }
 @media all and (min-width: 1440px) {
@@ -6321,9 +6292,9 @@ input {
     width: 450px;
     height: 650px;
     z-index: 1;
-    bottom: -180px;
+    bottom: 46px;
     right: auto;
-    left: -94px;
+    left: 4px;
   }
 }
 @media all and (min-width: 1920px) {

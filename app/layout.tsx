@@ -14,6 +14,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
         <link rel="stylesheet" href="/wheel-styles.css" />
         <link rel="icon" type="image/svg+xml" href="/assets/images/logo/logo.svg" sizes="96x96" />
         <link rel="icon" type="image/svg+xml" href="/assets/images/logo/logo.svg" />
