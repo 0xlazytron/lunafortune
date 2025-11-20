@@ -82,8 +82,7 @@ export default function RegistrationModal({ prize, onClose }: RegistrationModalP
 
   const validate = () => {
     const newErrors: { phone?: string; email?: string; password?: string } = {};
-    const digits = phoneNumber.replace(/\D/g, '');
-    if (digits.length < 7 || digits.length > 15) newErrors.phone = 'Enter your full phone number';
+    // Phone validation disabled for now
     const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
     if (!emailOk) newErrors.email = 'Enter a valid e-mail address';
     if (password.length < 6) newErrors.password = 'The password should be at least 6 characters';
@@ -95,13 +94,10 @@ export default function RegistrationModal({ prize, onClose }: RegistrationModalP
     e.preventDefault();
     if (!validate()) return;
     const payload = {
-      country: selectedCountry.iso2,
-      dialCode: selectedCountry.dialCode,
-      phone: phoneNumber,
+      // Phone and country temporarily disabled
       email,
       password,
-      currency: selectedCurrency.code,
-      promoCode: promoCode || undefined,
+      // Currency and promo temporarily disabled
     };
     console.log('Registration payload', payload);
   };
@@ -127,6 +123,7 @@ export default function RegistrationModal({ prize, onClose }: RegistrationModalP
         </div>
 
         <form className="form" onSubmit={onSubmit}>
+          {/*
           <div className="form__field">
             <div className="phone-input">
               <button
@@ -191,6 +188,7 @@ export default function RegistrationModal({ prize, onClose }: RegistrationModalP
               </div>
             )}
           </div>
+          */}
 
           <div className="form__field">
             <input
@@ -236,6 +234,7 @@ export default function RegistrationModal({ prize, onClose }: RegistrationModalP
             {errors.password && <p className="form__error">{errors.password}</p>}
           </div>
 
+          {/*
           <div className="form__field">
             <div className="currency-row">
               <div className="currency-dropdown">
@@ -303,6 +302,7 @@ export default function RegistrationModal({ prize, onClose }: RegistrationModalP
               </div>
             )}
           </div>
+          */}
 
           <button className="form__button" type="submit">
             CLAIM YOUR BONUSES

@@ -6296,14 +6296,14 @@ input {
 }
 .decor__secondicon[data-v-7c329a3d] {
   background-image: -webkit-image-set(
-    url(../images/bgicons/itembg.avif) 1x,
+    /* url(../images/bgicons/itembg.avif) 1x,
     url(../images/bgicons/itembg%402x.avif) 2x,
-    url(../images/bgicons/itembg%403x.avif) 3x
+    url(../images/bgicons/itembg%403x.avif) 3x */
   );
   background-image: image-set(
-    url(../images/bgicons/itembg.avif) 1x,
+    /* url(../images/bgicons/itembg.avif) 1x,
     url(../images/bgicons/itembg%402x.avif) 2x,
-    url(../images/bgicons/itembg%403x.avif) 3x
+    url(../images/bgicons/itembg%403x.avif) 3x */
   );
   background-size: cover;
   position: absolute;

@@ -446,7 +446,7 @@ input {
   object-fit: contain;
   -o-object-position: center;
   object-position: center;
-  width: 100%;
+  /* width: 100%; */
 }
 .icon-arrow__animate[data-v-f6adb99e] {
   animation-duration: 1.5s;
@@ -6500,14 +6500,14 @@ input {
 }
 .decor__firsticon[data-v-7c329a3d] {
   background-image: -webkit-image-set(
-    url(/assets/images/bgicons/Item5.avif) 1x,
+    /* url(/assets/images/bgicons/Item5.avif) 1x,
     url(/assets/images/bgicons/Item5%402x.avif) 2x,
-    url(/assets/images/bgicons/Item5%403x.avif) 3x
+    url(/assets/images/bgicons/Item5%403x.avif) 3x */
   );
   background-image: image-set(
-    url(/assets/images/bgicons/Item5.avif) 1x,
+    /* url(/assets/images/bgicons/Item5.avif) 1x,
     url(/assets/images/bgicons/Item5%402x.avif) 2x,
-    url(/assets/images/bgicons/Item5%403x.avif) 3x
+    url(/assets/images/bgicons/Item5%403x.avif) 3x */
   );
   background-size: cover;
   position: absolute;
@@ -6556,14 +6556,14 @@ input {
 }
 .decor__secondicon[data-v-7c329a3d] {
   background-image: -webkit-image-set(
-    url(/assets/images/bgicons/itembg.avif) 1x,
+    /* url(/assets/images/bgicons/itembg.avif) 1x,
     url(/assets/images/bgicons/itembg%402x.avif) 2x,
-    url(/assets/images/bgicons/itembg%403x.avif) 3x
+    url(/assets/images/bgicons/itembg%403x.avif) 3x */
   );
   background-image: image-set(
-    url(/assets/images/bgicons/itembg.avif) 1x,
+    /* url(/assets/images/bgicons/itembg.avif) 1x,
     url(/assets/images/bgicons/itembg%402x.avif) 2x,
-    url(/assets/images/bgicons/itembg%403x.avif) 3x
+    url(/assets/images/bgicons/itembg%403x.avif) 3x */
   );
   background-size: cover;
   position: absolute;
