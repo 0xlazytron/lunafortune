@@ -131,7 +131,8 @@ export default function Home() {
         <header data-v-ba98396c="" data-v-88196f00="" className="header header__wrapper">
           <div className="header__logo-card">
             <picture data-v-09a91d5b="" data-v-ba98396c="" className="header__logo">
-              <img data-v-09a91d5b="" className="logo" src="/assets/images/logo/logo.svg" alt="Logo: 1win" />
+              <source media="(max-width: 640px)" srcSet="" />
+              <img data-v-09a91d5b="" className="logo" src="/assets/images/logo/logo.svg" alt="Logo: Mr luna" />
             </picture>
           </div>
 
@@ -250,7 +251,7 @@ export default function Home() {
               <span data-v-5e81c9f5="" className="have-an-account__link">Go to the website</span>
             </span>
           </a>
-          <span data-v-896b25e0="" data-v-f0e69d08="" className="text text_theme-light footer__text">© 2025 MrLuna Casino | All rights reserved</span>
+          <span data-v-896b25e0="" data-v-f0e69d08="" className="text text_theme-light footer__text">© 2025 Mr Luna | All rights reserved</span>
         </footer>
       </div>
 

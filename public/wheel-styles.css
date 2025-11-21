@@ -738,10 +738,10 @@ input {
   text-align: center;
   font-size: 16px;
   font-style: normal;
-  font-weight: 700;
+  /* font-weight: 700; */
   color: #fff;
   line-height: 18px;
-  font-family: HalvarBreit, sans-serif !important;
+  /* font-family: HalvarBreit, sans-serif !important; */
 }
 .footer__text[data-v-f0e69d08]:lang(tg) {
   font-size: 12px;
@@ -1480,7 +1480,7 @@ input {
 }
 .wheel-item__img_iconfour {
   width: 24px;
-  height: 24px;
+  height: 32px;
   background-image: url(/assets/segmenticons/iphone17.webp);
   background-size: cover;
 }
