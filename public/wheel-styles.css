@@ -1456,7 +1456,7 @@ input {
 }
 @media all and (min-width: 768px) {
   .wheel-item__img_iconthree {
-    width: 26px;
+    width: 32px;
     height: 26px;
     background-image: url(/assets/segmenticons/100$.webp);
     background-size: cover;
@@ -1487,7 +1487,7 @@ input {
 @media all and (min-width: 768px) {
   .wheel-item__img_iconfour {
     width: 26px;
-    height: 26px;
+    height: 34px;
     background-image: url(/assets/segmenticons/iphone17.webp);
     background-size: cover;
   }
@@ -1495,7 +1495,7 @@ input {
 @media all and (min-width: 1024px) {
   .wheel-item__img_iconfour {
     width: 30px;
-    height: 30px;
+    height: 40px;
     background-image: url(/assets/segmenticons/iphone17.webp);
     background-size: cover;
   }
