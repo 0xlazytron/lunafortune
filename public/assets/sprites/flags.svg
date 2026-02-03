@@ -29,5 +29,14 @@
     <rect y="5.33" width="16" height="5.33" fill="#0039A6"/>
     <rect y="10.66" width="16" height="5.34" fill="#D52B1E"/>
   </symbol>
+  <symbol id="ja" viewBox="0 0 16 16">
+    <rect width="16" height="16" fill="#fff"/>
+    <circle cx="8" cy="8" r="4.4" fill="#BC002D"/>
+  </symbol>
+  <symbol id="ro" viewBox="0 0 16 16">
+    <rect width="5.33" height="16" fill="#002B7F"/>
+    <rect x="5.33" width="5.34" height="16" fill="#FCD116"/>
+    <rect x="10.67" width="5.33" height="16" fill="#CE1126"/>
+  </symbol>
 </svg>
 

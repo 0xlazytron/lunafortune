@@ -6,15 +6,162 @@ import Loader from './components/Loader';
 import PrizeBadge from './components/PrizeBadge';
 import RegistrationModal from './components/RegistrationModal';
 
+type LanguageCode = 'en' | 'pt' | 'es' | 'ja' | 'ro';
+
+const languages: { code: LanguageCode; label: string; flagId: string; nativeName: string }[] = [
+  { code: 'en', label: 'EN', flagId: 'en', nativeName: 'English' },
+  { code: 'pt', label: 'PT', flagId: 'pt', nativeName: 'Português' },
+  { code: 'es', label: 'ES', flagId: 'es', nativeName: 'Español' },
+  { code: 'ja', label: 'JA', flagId: 'ja', nativeName: '日本語' },
+  { code: 'ro', label: 'RO', flagId: 'ro', nativeName: 'Română' }
+];
+
+const translations: Record<
+  LanguageCode,
+  {
+    headerAlreadyAccount: string;
+    headerGoWebsite: string;
+    titleLine1: string;
+    titleLine2: string;
+    spinButton: string;
+    remainingLabel: string;
+    triesSingular: string;
+    triesPlural: string;
+    footerText: string;
+  }
+> = {
+  en: {
+    headerAlreadyAccount: 'Already have an account?',
+    headerGoWebsite: 'Go to the website',
+    titleLine1: 'SPIN THE WHEEL',
+    titleLine2: 'AND GET THE BONUSES',
+    spinButton: 'SPIN',
+    remainingLabel: 'REMAINING',
+    triesSingular: 'TRY',
+    triesPlural: 'TRIES',
+    footerText: '© 2025 Mr Luna | All rights reserved'
+  },
+  pt: {
+    headerAlreadyAccount: 'Já tem uma conta?',
+    headerGoWebsite: 'Ir para o site',
+    titleLine1: 'GIRE A RODA',
+    titleLine2: 'E RECEBA BÔNUS',
+    spinButton: 'GIRAR',
+    remainingLabel: 'RESTANTES',
+    triesSingular: 'TENTATIVA',
+    triesPlural: 'TENTATIVAS',
+    footerText: '© 2025 Mr Luna | Todos os direitos reservados'
+  },
+  es: {
+    headerAlreadyAccount: '¿Ya tienes una cuenta?',
+    headerGoWebsite: 'Ir al sitio web',
+    titleLine1: 'GIRA LA RULETA',
+    titleLine2: 'Y OBTÉN BONOS',
+    spinButton: 'GIRAR',
+    remainingLabel: 'RESTANTES',
+    triesSingular: 'INTENTO',
+    triesPlural: 'INTENTOS',
+    footerText: '© 2025 Mr Luna | Todos los derechos reservados'
+  },
+  ja: {
+    headerAlreadyAccount: 'すでにアカウントをお持ちですか？',
+    headerGoWebsite: 'サイトへ移動',
+    titleLine1: 'ホイールを回して',
+    titleLine2: 'ボーナスを獲得しよう',
+    spinButton: 'スピン',
+    remainingLabel: '残り',
+    triesSingular: '回',
+    triesPlural: '回',
+    footerText: '© 2025 Mr Luna | 無断複写・転載を禁じます'
+  },
+  ro: {
+    headerAlreadyAccount: 'Ai deja un cont?',
+    headerGoWebsite: 'Mergi la site',
+    titleLine1: 'ÎNVÂRTE ROATA',
+    titleLine2: 'ȘI PRIMEȘTE BONUSURI',
+    spinButton: 'ÎNVÂRTE',
+    remainingLabel: 'RĂMASE',
+    triesSingular: 'ÎNCERCARE',
+    triesPlural: 'ÎNCERCĂRI',
+    footerText: '© 2025 Mr Luna | Toate drepturile rezervate'
+  }
+};
+
+const prizeText: Record<
+  LanguageCode,
+  Record<
+    string,
+    {
+      big?: string;
+      percent?: string;
+      small?: string;
+      name?: string;
+    }
+  >
+> = {
+  en: {
+    'TRY AGAIN': { big: '', small: 'TRY AGAIN', name: 'TRY AGAIN' },
+    '100% BONUS': { big: '100', percent: '%', small: 'BONUS', name: '100% BONUS' },
+    '1000 FREE SPINS': { big: '1000', small: 'FREE SPINS', name: '1000 FREE SPINS' },
+    '$100 CASH': { big: '$100', small: 'CASH', name: '$100 CASH' },
+    'iPHONE 17': { big: '', small: 'iPHONE 17', name: 'iPHONE 17' }
+  },
+  pt: {
+    'TRY AGAIN': { big: '', small: 'TENTE NOVAMENTE', name: 'TENTE NOVAMENTE' },
+    '100% BONUS': { big: '100', percent: '%', small: 'BÔNUS', name: '100% BÔNUS' },
+    '1000 FREE SPINS': { big: '1000', small: 'GIROS GRÁTIS', name: '1000 GIROS GRÁTIS' },
+    '$100 CASH': { big: '$100', small: 'DINHEIRO', name: '$100 EM DINHEIRO' },
+    'iPHONE 17': { big: '', small: 'iPhone 17', name: 'iPhone 17' }
+  },
+  es: {
+    'TRY AGAIN': { big: '', small: 'INTÉNTALO DE NUEVO', name: 'INTÉNTALO DE NUEVO' },
+    '100% BONUS': { big: '100', percent: '%', small: 'BONO', name: 'BONO DEL 100%' },
+    '1000 FREE SPINS': { big: '1000', small: 'GIROS GRATIS', name: '1000 GIROS GRATIS' },
+    '$100 CASH': { big: '$100', small: 'EFECTIVO', name: '$100 EN EFECTIVO' },
+    'iPHONE 17': { big: '', small: 'iPhone 17', name: 'iPhone 17' }
+  },
+  ja: {
+    'TRY AGAIN': { big: '', small: 'もう一度', name: 'もう一度' },
+    '100% BONUS': { big: '100', percent: '%', small: 'ボーナス', name: '100%ボーナス' },
+    '1000 FREE SPINS': { big: '1000', small: 'フリースピン', name: '1000フリースピン' },
+    '$100 CASH': { big: '$100', small: '現金', name: '$100 現金' },
+    'iPHONE 17': { big: '', small: 'iPhone 17', name: 'iPhone 17' }
+  },
+  ro: {
+    'TRY AGAIN': { big: '', small: 'ÎNCEARCĂ DIN NOU', name: 'ÎNCEARCĂ DIN NOU' },
+    '100% BONUS': { big: '100', percent: '%', small: 'BONUS', name: 'BONUS 100%' },
+    '1000 FREE SPINS': { big: '1000', small: 'ROTIRI GRATUITE', name: '1000 ROTIRI GRATUITE' },
+    '$100 CASH': { big: '$100', small: 'BANI', name: '$100 CASH' },
+    'iPHONE 17': { big: '', small: 'iPhone 17', name: 'iPhone 17' }
+  }
+};
+
+const isLanguageCode = (value: string): value is LanguageCode =>
+  languages.some((lang) => lang.code === value);
+
 export default function Home() {
   const [loading, setLoading] = useState(true);
   const [spinning, setSpinning] = useState(false);
   const [tries, setTries] = useState(2);
+  const [language, setLanguage] = useState<LanguageCode>(() => {
+    if (typeof window === 'undefined') return 'en';
+    const stored = window.localStorage.getItem('luna_language');
+    if (stored && isLanguageCode(stored)) {
+      document.documentElement.lang = stored;
+      return stored;
+    }
+    document.documentElement.lang = 'en';
+    return 'en';
+  });
+  const [langMenuOpen, setLangMenuOpen] = useState(false);
   const [rotation, setRotation] = useState(0);
   const [showRegistrationModal, setShowRegistrationModal] = useState(false);
   const [showPrizeBadge, setShowPrizeBadge] = useState(false);
   const [prize, setPrize] = useState('');
   const [winningIndex, setWinningIndex] = useState(-1);
+
+  const langButtonRef = useRef<HTMLButtonElement | null>(null);
+  const langMenuRef = useRef<HTMLDivElement | null>(null);
 
   const prizes = [
     { name: 'TRY AGAIN', big: '', small: 'TRY AGAIN', icon: 'iconsix', color: 'red' },
@@ -33,6 +180,12 @@ export default function Home() {
     }, 2000);
     return () => clearTimeout(timer);
   }, []);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    window.localStorage.setItem('luna_language', language);
+    document.documentElement.lang = language;
+  }, [language]);
 
   const lockedScrollYRef = useRef(0);
   useEffect(() => {
@@ -62,6 +215,26 @@ export default function Home() {
       window.scrollTo(0, y);
     };
   }, [showRegistrationModal]);
+
+  useEffect(() => {
+    const handler = (e: MouseEvent) => {
+      const target = e.target as Node;
+      if (
+        langMenuOpen &&
+        langMenuRef.current &&
+        !langMenuRef.current.contains(target) &&
+        langButtonRef.current &&
+        !langButtonRef.current.contains(target)
+      ) {
+        setLangMenuOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handler);
+    return () => document.removeEventListener('mousedown', handler);
+  }, [langMenuOpen]);
+
+  const currentLanguage = languages.find((lang) => lang.code === language) ?? languages[0];
+  const t = translations[language];
 
   const spinWheel = () => {
     if (spinning || tries <= 0) return;
@@ -128,7 +301,7 @@ export default function Home() {
       <div className="app-wrapper">
         <div className="app-wrapper__bg" />
 
-        <header data-v-ba98396c="" data-v-88196f00="" className="header header__wrapper">
+        <header data-v-ba98396c="" data-v-88196f00="" className="header header__wrapper" lang={language}>
           <div className="header__logo-card">
             <picture data-v-09a91d5b="" data-v-ba98396c="" className="header__logo">
               <source media="(max-width: 640px)" srcSet="" />
@@ -138,21 +311,82 @@ export default function Home() {
 
           <div data-v-ba98396c="" className="header__account">
             <div data-v-8fb44ac0="" data-v-ba98396c="" className="dropdown header__select-lang">
-              <button data-v-8fb44ac0="" type="button" className="dropdown__header">
+              <button
+                data-v-8fb44ac0=""
+                type="button"
+                className="dropdown__header"
+                onClick={() => setLangMenuOpen((v) => !v)}
+                ref={langButtonRef}
+              >
                 <svg data-v-8fb44ac0="" className="dropdown__flag" aria-hidden="true" width="16" height="16">
-                  <use data-v-8fb44ac0="" href="/assets/sprites/flags.svg#en"></use>
+                  <use data-v-8fb44ac0="" href={`/assets/sprites/flags.svg#${currentLanguage.flagId}`}></use>
                 </svg>
-                <span data-v-8fb44ac0="">EN</span>
-                <svg data-v-8fb44ac0="" xmlns="http://www.w3.org/2000/svg" className="icon dropdown__arrow" aria-hidden="true" role="presentation" width="8" height="5" viewBox="0 0 10 6">
-                  <path data-v-8fb44ac0="" fill="#fff" d="M.234.334A.8.8 0 0 1 1.276.256l.09.078L4 2.968 6.634.334A.8.8 0 0 1 7.676.256l.09.078a.8.8 0 0 1 .077 1.042l-.077.09-3.2 3.2a.8.8 0 0 1-1.042.077l-.09-.078-3.2-3.2a.8.8 0 0 1 0-1.131Z" opacity=".5"></path>
+                <span data-v-8fb44ac0="">{currentLanguage.label}</span>
+                <svg
+                  data-v-8fb44ac0=""
+                  xmlns="http://www.w3.org/2000/svg"
+                  className={`icon dropdown__arrow${langMenuOpen ? ' dropdown__arrow_is_turn' : ''}`}
+                  aria-hidden="true"
+                  role="presentation"
+                  width="8"
+                  height="5"
+                  viewBox="0 0 10 6"
+                >
+                  <path
+                    data-v-8fb44ac0=""
+                    fill="#fff"
+                    d="M.234.334A.8.8 0 0 1 1.276.256l.09.078L4 2.968 6.634.334A.8.8 0 0 1 7.676.256l.09.078a.8.8 0 0 1 .077 1.042l-.077.09-3.2 3.2a.8.8 0 0 1-1.042.077l-.09-.078-3.2-3.2a.8.8 0 0 1 0-1.131Z"
+                    opacity=".5"
+                  ></path>
                 </svg>
               </button>
+              {langMenuOpen && (
+                <div
+                  ref={langMenuRef}
+                  className="dropdown__modal"
+                >
+                  <ul
+                    className="dropdown__list"
+                    style={{ maxHeight: 'none', overflowY: 'visible' }}
+                  >
+                    {languages.map((langOption) => (
+                      <li className="dropdown__item" key={langOption.code}>
+                        <button
+                          type="button"
+                          className="dropdown__button-item"
+                          onClick={() => {
+                            setLanguage(langOption.code);
+                            setLangMenuOpen(false);
+                          }}
+                        >
+                          <svg className="dropdown__flag" aria-hidden="true" width="16" height="16">
+                            <use href={`/assets/sprites/flags.svg#${langOption.flagId}`}></use>
+                          </svg>
+                          <span
+                            style={{
+                              flex: 1,
+                              fontWeight: langOption.code === language ? 700 : 500,
+                              whiteSpace: 'nowrap'
+                            }}
+                          >
+                            {langOption.label}
+                          </span>
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
             </div>
 
             <a href="https://mrlunacasino.com" target="_blank" rel="noopener noreferrer" data-v-5e81c9f5="" data-v-ba98396c="" className="have-an-account have-an-account_inside_header">
               <span data-v-5e81c9f5="" className="have-an-account__description" tabIndex={0}>
-                <span data-v-5e81c9f5="" className="have-an-account__question">Already have an account?</span>
-                <span data-v-5e81c9f5="" className="have-an-account__link">Go to the website</span>
+                <span data-v-5e81c9f5="" className="have-an-account__question">
+                  {t.headerAlreadyAccount}
+                </span>
+                <span data-v-5e81c9f5="" className="have-an-account__link">
+                  {t.headerGoWebsite}
+                </span>
               </span>
               <svg data-v-f6adb99e="" data-v-5e81c9f5="" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 35 35" className="have-an-account__arrow" aria-hidden="true">
                 <rect data-v-f6adb99e="" width="35" height="35" fill="#fff" rx="17.5"></rect>
@@ -165,8 +399,12 @@ export default function Home() {
 
         {/* Title ABOVE the wheel */}
         <h1 data-v-a1e68c04="" data-v-88196f00="" className="title title__wrapper main__title">
-          <span data-v-896b25e0="" data-v-a1e68c04="" className="text text_theme-light text_font-family-halvarbreit text_uppercase title__text title__text_md">SPIN THE WHEEL</span>
-          <span data-v-896b25e0="" data-v-a1e68c04="" className="text text_theme-light text_font-family-halvarbreit text_uppercase title__text title__text_lg">AND GET THE BONUSES</span>
+          <span data-v-896b25e0="" data-v-a1e68c04="" className="text text_theme-light text_font-family-halvarbreit text_uppercase title__text title__text_md">
+            {t.titleLine1}
+          </span>
+          <span data-v-896b25e0="" data-v-a1e68c04="" className="text text_theme-light text_font-family-halvarbreit text_uppercase title__text title__text_lg">
+            {t.titleLine2}
+          </span>
         </h1>
 
         <main data-v-88196f00="" className="main">
@@ -184,21 +422,29 @@ export default function Home() {
                     transition: spinning ? 'transform 4s cubic-bezier(0.17, 0.67, 0.12, 0.99)' : 'none'
                   }}
                 >
-                  {prizes.map((prizeItem, index) => (
-                    <li
-                      key={index}
-                      className={`wheel-item wheel__list-item ${winningIndex === index ? `wheel-item--winning wheel-item--${prizeItem.color}` : ''}`}
-                    >
-                      <div className={`wheel-item__img wheel-item__img_${prizeItem.icon}`}></div>
-                      <span className="wheel-item__text wheel-item__text_type_big wheel-item__text_white">
-                        <div className="wraper-text">
-                          <span>{prizeItem.big}</span>
-                          {prizeItem.percent && <span className="wheel__list-element wheel__list-element_right"> {prizeItem.percent} </span>}
-                        </div>
-                      </span>
-                      <span className="wheel-item__text wheel-item__text_type_small wheel-item__text_white">{prizeItem.small}</span>
-                    </li>
-                  ))}
+                  {prizes.map((prizeItem, index) => {
+                    const prizeLocale = prizeText[language]?.[prizeItem.name];
+                    const bigText = prizeLocale?.big ?? prizeItem.big ?? '';
+                    const percentText = prizeLocale?.percent ?? prizeItem.percent;
+                    const smallText = prizeLocale?.small ?? prizeItem.small;
+                    return (
+                      <li
+                        key={index}
+                        className={`wheel-item wheel__list-item ${winningIndex === index ? `wheel-item--winning wheel-item--${prizeItem.color}` : ''}`}
+                      >
+                        <div className={`wheel-item__img wheel-item__img_${prizeItem.icon}`}></div>
+                        <span className="wheel-item__text wheel-item__text_type_big wheel-item__text_white">
+                          <div className="wraper-text">
+                            <span>{bigText}</span>
+                            {percentText && (
+                              <span className="wheel__list-element wheel__list-element_right"> {percentText} </span>
+                            )}
+                          </div>
+                        </span>
+                        <span className="wheel-item__text wheel-item__text_type_small wheel-item__text_white">{smallText}</span>
+                      </li>
+                    );
+                  })}
                 </ul>
               </div>
               <div data-v-654aabab="" className="wheel-border__shadow"></div>
@@ -216,7 +462,7 @@ export default function Home() {
                 <span data-v-01b565ea="" className="wheel-button__main-circle">
                   <span data-v-01b565ea="" className="wheel-button__inner-circle"></span>
                   <span data-v-896b25e0="" data-v-01b565ea="" className="text text_theme-pink text_font-family-halvarbreit text_uppercase wheel-button__text">
-                    SPIN
+                    {t.spinButton}
                   </span>
                 </span>
               </span>
@@ -226,8 +472,12 @@ export default function Home() {
 
             <div data-v-d588f77d="" className="counter-of-spin">
               <p data-v-d588f77d="" className="counter-of-spin__text-wrapper">
-                <span data-v-896b25e0="" data-v-d588f77d="" className="text text_theme-default text_font-family-halvarbreit text_uppercase counter-of-spin__text counter-of-spin__text_md">REMAINING</span>
-                <span data-v-896b25e0="" data-v-d588f77d="" className="text text_theme-default text_font-family-halvarbreit text_uppercase counter-of-spin__text counter-of-spin__text_lg">{tries} {tries === 1 ? 'TRY' : 'TRIES'}</span>
+                <span data-v-896b25e0="" data-v-d588f77d="" className="text text_theme-default text_font-family-halvarbreit text_uppercase counter-of-spin__text counter-of-spin__text_md">
+                  {t.remainingLabel}
+                </span>
+                <span data-v-896b25e0="" data-v-d588f77d="" className="text text_theme-default text_font-family-halvarbreit text_uppercase counter-of-spin__text counter-of-spin__text_lg">
+                  {tries} {tries === 1 ? t.triesSingular : t.triesPlural}
+                </span>
               </p>
             </div>
           </div>
@@ -244,24 +494,35 @@ export default function Home() {
           <div className="decor__coin" data-v-7c329a3d=""></div>
         </div>
 
-        <footer data-v-f0e69d08="" data-v-88196f00="" className="footer footer__wrapper">
+        <footer data-v-f0e69d08="" data-v-88196f00="" className="footer footer__wrapper" lang={language}>
           <a href="https://mrlunacasino.com" target="_blank" rel="noopener noreferrer" data-v-5e81c9f5="" data-v-f0e69d08="" className="have-an-account footer__select-lang">
             <span data-v-5e81c9f5="" className="have-an-account__description" tabIndex={0}>
-              <span data-v-5e81c9f5="" className="have-an-account__question">Already have an account?</span>
-              <span data-v-5e81c9f5="" className="have-an-account__link">Go to the website</span>
+              <span data-v-5e81c9f5="" className="have-an-account__question">
+                {t.headerAlreadyAccount}
+              </span>
+              <span data-v-5e81c9f5="" className="have-an-account__link">
+                {t.headerGoWebsite}
+              </span>
             </span>
           </a>
-          <span data-v-896b25e0="" data-v-f0e69d08="" className="text text_theme-light footer__text">© 2025 Mr Luna | All rights reserved</span>
+          <span data-v-896b25e0="" data-v-f0e69d08="" className="text text_theme-light footer__text">
+            {t.footerText}
+          </span>
         </footer>
       </div>
 
       {/* Prize Badge (bottom left/right) */}
-      <PrizeBadge prize={prize} isVisible={showPrizeBadge} />
+      <PrizeBadge
+        prize={prize}
+        isVisible={showPrizeBadge}
+        language={language}
+      />
 
       {/* Registration Modal */}
       {showRegistrationModal && (
         <RegistrationModal
           prize={prize}
+          language={language}
           onClose={closeRegistrationModal}
         />
       )}

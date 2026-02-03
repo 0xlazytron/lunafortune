@@ -17,7 +17,7 @@ export default function Modal({ prize, tries, onClose }: ModalProps) {
           <>
             <h2 className="modal__title">🎰 GAME OVER!</h2>
             <p className="modal__message">
-              You've used all your tries!
+              You have used all your tries!
               <br /><br />
               <strong style={{ fontSize: '20px', color: '#ffd700' }}>
                 Sign up now to get more spins and amazing bonuses!

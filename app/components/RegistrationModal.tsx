@@ -1,16 +1,105 @@
+/* eslint-disable @next/next/no-img-element */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 'use client';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import countryDialCodes, { CountryDialCode } from '../data/countryDialCodes';
 
+type LanguageCode = 'en' | 'pt' | 'es' | 'ja' | 'ro';
+
 interface RegistrationModalProps {
   prize: string;
   onClose: () => void;
+  language: LanguageCode;
 }
 
-export default function RegistrationModal({ prize, onClose }: RegistrationModalProps) {
-  // Determine subtitle based on prize type
+const modalTranslations: Record<
+  LanguageCode,
+  {
+    youWon: string;
+    toYourDeposit: string;
+    emailPlaceholder: string;
+    passwordPlaceholder: string;
+    hidePasswordAria: string;
+    showPasswordAria: string;
+    submitButton: string;
+    footerText: string;
+    footerLink: string;
+    emailError: string;
+    passwordError: string;
+  }
+> = {
+  en: {
+    youWon: 'YOU WON',
+    toYourDeposit: 'TO YOUR DEPOSIT',
+    emailPlaceholder: 'Email',
+    passwordPlaceholder: 'Password',
+    hidePasswordAria: 'Hide password',
+    showPasswordAria: 'Show password',
+    submitButton: 'REGISTER CLAIM YOUR BONUSES',
+    footerText: 'Already have an account?',
+    footerLink: 'Log in',
+    emailError: 'Enter a valid e-mail address',
+    passwordError: 'The password should be at least 6 characters'
+  },
+  pt: {
+    youWon: 'VOCÊ GANHOU',
+    toYourDeposit: 'NO SEU DEPÓSITO',
+    emailPlaceholder: 'E-mail',
+    passwordPlaceholder: 'Senha',
+    hidePasswordAria: 'Ocultar senha',
+    showPasswordAria: 'Mostrar senha',
+    submitButton: 'REGISTRE-SE E RESGATE SEUS BÔNUS',
+    footerText: 'Já tem uma conta?',
+    footerLink: 'Entrar',
+    emailError: 'Digite um e-mail válido',
+    passwordError: 'A senha deve ter pelo menos 6 caracteres'
+  },
+  es: {
+    youWon: 'HAS GANADO',
+    toYourDeposit: 'EN TU DEPÓSITO',
+    emailPlaceholder: 'Correo electrónico',
+    passwordPlaceholder: 'Contraseña',
+    hidePasswordAria: 'Ocultar contraseña',
+    showPasswordAria: 'Mostrar contraseña',
+    submitButton: 'REGÍSTRATE Y RECLAMA TUS BONOS',
+    footerText: '¿Ya tienes una cuenta?',
+    footerLink: 'Iniciar sesión',
+    emailError: 'Introduce un correo electrónico válido',
+    passwordError: 'La contraseña debe tener al menos 6 caracteres'
+  },
+  ja: {
+    youWon: 'おめでとうございます',
+    toYourDeposit: '入金に適用されます',
+    emailPlaceholder: 'メールアドレス',
+    passwordPlaceholder: 'パスワード',
+    hidePasswordAria: 'パスワードを非表示',
+    showPasswordAria: 'パスワードを表示',
+    submitButton: '登録してボーナスを受け取る',
+    footerText: 'すでにアカウントをお持ちですか？',
+    footerLink: 'ログイン',
+    emailError: '有効なメールアドレスを入力してください',
+    passwordError: 'パスワードは6文字以上で入力してください'
+  },
+  ro: {
+    youWon: 'AI CÂȘTIGAT',
+    toYourDeposit: 'LA DEPUNEREA TA',
+    emailPlaceholder: 'E-mail',
+    passwordPlaceholder: 'Parolă',
+    hidePasswordAria: 'Ascunde parola',
+    showPasswordAria: 'Afișează parola',
+    submitButton: 'ÎNREGISTREAZĂ-TE ȘI REIVENDICĂ-ȚI BONUSURILE',
+    footerText: 'Ai deja un cont?',
+    footerLink: 'Conectează-te',
+    emailError: 'Introdu o adresă de e-mail validă',
+    passwordError: 'Parola trebuie să aibă cel puțin 6 caractere'
+  }
+};
+
+export default function RegistrationModal({ prize, onClose, language }: RegistrationModalProps) {
+  const t = modalTranslations[language] ?? modalTranslations.en;
+
   const getSubtitle = () => {
-    if (prize.includes('BONUS')) return 'TO YOUR DEPOSIT';
+    if (prize.includes('BONUS')) return t.toYourDeposit;
     if (prize.includes('CASH')) return '';
     if (prize.includes('FREE SPINS')) return '';
     if (prize.includes('iPHONE')) return '';
@@ -80,26 +169,26 @@ export default function RegistrationModal({ prize, onClose }: RegistrationModalP
     return countryDialCodes.filter((c) => c.name.toLowerCase().includes(q));
   }, [searchQuery]);
 
+  /*
   const validate = () => {
     const newErrors: { phone?: string; email?: string; password?: string } = {};
-    // Phone validation disabled for now
     const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-    if (!emailOk) newErrors.email = 'Enter a valid e-mail address';
-    if (password.length < 6) newErrors.password = 'The password should be at least 6 characters';
+    if (!emailOk) newErrors.email = t.emailError;
+    if (password.length < 6) newErrors.password = t.passwordError;
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
+  */
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!validate()) return;
+    // if (!validate()) return;
     const payload = {
-      // Phone and country temporarily disabled
       email,
-      password,
-      // Currency and promo temporarily disabled
+      password
     };
     console.log('Registration payload', payload);
+    window.location.href = 'https://mrluna.io';
   };
 
   return (
@@ -111,7 +200,7 @@ export default function RegistrationModal({ prize, onClose }: RegistrationModalP
             <img src="/assets/images/reg/regpopup.webp" alt="Registration Character" />
           </div>
           <div className="modal-registration__wrap">
-            <span className="modal-registration__text modal-registration__text_md">YOU WON</span>
+            <span className="modal-registration__text modal-registration__text_md">{t.youWon}</span>
           </div>
           <div className="modal-registration__bonus-wrapper">
             <span className="modal-registration__text modal-registration__text_xxl">{prize}</span>
@@ -190,29 +279,29 @@ export default function RegistrationModal({ prize, onClose }: RegistrationModalP
           </div>
           */}
 
-          <div className="form__field">
+          {/* <div className="form__field">
             <input
               type="email"
-              placeholder="Email"
+              placeholder={t.emailPlaceholder}
               className={`form__input ${errors.email ? 'is-error' : ''}`}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
             {errors.email && <p className="form__error">{errors.email}</p>}
-          </div>
+          </div> */}
 
-          <div className="form__field">
+          {/* <div className="form__field">
             <div className="password-wrapper">
               <input
                 type={showPassword ? 'text' : 'password'}
-                placeholder="Password"
+                placeholder={t.passwordPlaceholder}
                 className={`form__input ${errors.password ? 'is-error' : ''}`}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
               <button
                 type="button"
-                aria-label={showPassword ? 'Hide password' : 'Show password'}
+                aria-label={showPassword ? t.hidePasswordAria : t.showPasswordAria}
                 className="password-toggle"
                 onClick={() => setShowPassword((v) => !v)}
               >
@@ -232,7 +321,7 @@ export default function RegistrationModal({ prize, onClose }: RegistrationModalP
               </button>
             </div>
             {errors.password && <p className="form__error">{errors.password}</p>}
-          </div>
+          </div> */}
 
           {/*
           <div className="form__field">
@@ -305,15 +394,14 @@ export default function RegistrationModal({ prize, onClose }: RegistrationModalP
           */}
 
           <button className="form__button" type="submit">
-            CLAIM YOUR BONUSES
+            {t.submitButton}
           </button>
 
           <p className="form__footer">
-            Already have an account? <a href="#" className="form__link">Log in</a>
+            {t.footerText} <a href="#" className="form__link">{t.footerLink}</a>
           </p>
         </form>
       </div>
     </div>
   );
 }
-
