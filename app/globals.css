@@ -337,8 +337,10 @@ html {
   background: linear-gradient(135deg, #ff1f01 0%, #ff6b01 100%);
   border-radius: 20px;
   padding: 24px 32px;
-  box-shadow: 0 12px 40px rgba(255, 31, 1, 0.6),
-    0 0 0 4px rgba(255, 215, 0, 0.8), 0 0 20px rgba(255, 215, 0, 0.4);
+  box-shadow:
+    0 12px 40px rgba(255, 31, 1, 0.6),
+    0 0 0 4px rgba(255, 215, 0, 0.8),
+    0 0 20px rgba(255, 215, 0, 0.4);
   border: 3px solid #ffd700;
   min-width: 250px;
   transform-origin: center;
@@ -346,14 +348,18 @@ html {
 
 .prize-badge--green .prize-badge__content {
   background: linear-gradient(135deg, #00a651 0%, #00d463 100%);
-  box-shadow: 0 12px 40px rgba(0, 166, 81, 0.6),
-    0 0 0 4px rgba(255, 215, 0, 0.8), 0 0 20px rgba(255, 215, 0, 0.4);
+  box-shadow:
+    0 12px 40px rgba(0, 166, 81, 0.6),
+    0 0 0 4px rgba(255, 215, 0, 0.8),
+    0 0 20px rgba(255, 215, 0, 0.4);
 }
 
 .prize-badge--purple .prize-badge__content {
   background: linear-gradient(135deg, #6b1fb0 0%, #9b51e0 100%);
-  box-shadow: 0 12px 40px rgba(107, 31, 176, 0.6),
-    0 0 0 4px rgba(255, 215, 0, 0.8), 0 0 20px rgba(255, 215, 0, 0.4);
+  box-shadow:
+    0 12px 40px rgba(107, 31, 176, 0.6),
+    0 0 0 4px rgba(255, 215, 0, 0.8),
+    0 0 20px rgba(255, 215, 0, 0.4);
 }
 
 /* Triangle pointer at top */
@@ -377,7 +383,9 @@ html {
   color: #fff;
   text-align: center;
   font-family: "Halvar Breitschrift", "Arial Black", sans-serif;
-  text-shadow: 0 6px 12px rgba(0, 0, 0, 0.6), 0 2px 4px rgba(0, 0, 0, 0.4);
+  text-shadow:
+    0 6px 12px rgba(0, 0, 0, 0.6),
+    0 2px 4px rgba(0, 0, 0, 0.4);
   line-height: 1;
   margin-bottom: 8px;
   letter-spacing: -2px;
@@ -390,7 +398,9 @@ html {
   text-align: center;
   font-family: "Halvar Breitschrift", "Arial Black", sans-serif;
   text-transform: uppercase;
-  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.6), 0 2px 4px rgba(0, 0, 0, 0.4);
+  text-shadow:
+    0 4px 8px rgba(0, 0, 0, 0.6),
+    0 2px 4px rgba(0, 0, 0, 0.4);
   letter-spacing: 1px;
 }
 
@@ -663,7 +673,8 @@ html {
   font-weight: 900;
   text-transform: uppercase;
   cursor: pointer;
-  box-shadow: 0 4px 20px rgba(255, 107, 1, 0.5),
+  box-shadow:
+    0 4px 20px rgba(255, 107, 1, 0.5),
     0 4px 4px rgba(255, 255, 255, 0.25) inset;
   transition: all 0.2s;
   font-family: "Halvar Breitschrift", sans-serif;
@@ -672,7 +683,8 @@ html {
 
 .form__button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 25px rgba(255, 107, 1, 0.7),
+  box-shadow:
+    0 6px 25px rgba(255, 107, 1, 0.7),
     0 4px 4px rgba(255, 255, 255, 0.25) inset;
 }
 
@@ -1096,6 +1108,9 @@ html {
   border: none;
   cursor: pointer;
 }
+.have-an-account {
+  text-decoration: none;
+}
 .have-an-account__question {
   font-family: "Poppins", sans-serif !important;
   font-weight: 500 !important;
@@ -1103,6 +1118,16 @@ html {
 .have-an-account__link {
   font-family: "Poppins", sans-serif !important;
   font-weight: 500 !important;
+  text-decoration: none;
+}
+.have-an-account_inside_header {
+  position: relative;
+  top: 8px;
+}
+@media (max-width: 640px) {
+  .have-an-account_inside_header {
+    top: -6px;
+  }
 }
 .footer__text {
   font-family: "Poppins", sans-serif !important;

@@ -39,7 +39,7 @@ const translations: Record<
     remainingLabel: 'REMAINING',
     triesSingular: 'TRY',
     triesPlural: 'TRIES',
-    footerText: '© 2025 Mr Luna | All rights reserved'
+    footerText: '© 2026 Mr Luna | All rights reserved'
   },
   pt: {
     headerAlreadyAccount: 'Já tem uma conta?',
@@ -50,7 +50,7 @@ const translations: Record<
     remainingLabel: 'RESTANTES',
     triesSingular: 'TENTATIVA',
     triesPlural: 'TENTATIVAS',
-    footerText: '© 2025 Mr Luna | Todos os direitos reservados'
+    footerText: '© 2026 Mr Luna | Todos os direitos reservados'
   },
   es: {
     headerAlreadyAccount: '¿Ya tienes una cuenta?',
@@ -61,7 +61,7 @@ const translations: Record<
     remainingLabel: 'RESTANTES',
     triesSingular: 'INTENTO',
     triesPlural: 'INTENTOS',
-    footerText: '© 2025 Mr Luna | Todos los derechos reservados'
+    footerText: '© 2026 Mr Luna | Todos los derechos reservados'
   },
   ja: {
     headerAlreadyAccount: 'すでにアカウントをお持ちですか？',
@@ -72,7 +72,7 @@ const translations: Record<
     remainingLabel: '残り',
     triesSingular: '回',
     triesPlural: '回',
-    footerText: '© 2025 Mr Luna | 無断複写・転載を禁じます'
+    footerText: '© 2026 Mr Luna | 無断複写・転載を禁じます'
   },
   ro: {
     headerAlreadyAccount: 'Ai deja un cont?',
@@ -83,7 +83,7 @@ const translations: Record<
     remainingLabel: 'RĂMASE',
     triesSingular: 'ÎNCERCARE',
     triesPlural: 'ÎNCERCĂRI',
-    footerText: '© 2025 Mr Luna | Toate drepturile rezervate'
+    footerText: '© 2026 Mr Luna | Toate drepturile rezervate'
   }
 };
 
