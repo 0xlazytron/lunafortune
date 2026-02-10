@@ -1,10 +1,11 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import './globals.css';
+import dynamic from 'next/dynamic';
 import Loader from './components/Loader';
 import PrizeBadge from './components/PrizeBadge';
-import RegistrationModal from './components/RegistrationModal';
+
+const RegistrationModal = dynamic(() => import('./components/RegistrationModal'), { ssr: false });
 
 type LanguageCode = 'en' | 'pt' | 'es' | 'ja' | 'ro';
 
@@ -16,21 +17,32 @@ const languages: { code: LanguageCode; label: string; flagId: string; nativeName
   { code: 'ro', label: 'RO', flagId: 'ro', nativeName: 'Română' }
 ];
 
-const translations: Record<
-  LanguageCode,
-  {
-    headerAlreadyAccount: string;
-    headerGoWebsite: string;
-    titleLine1: string;
-    titleLine2: string;
-    spinButton: string;
-    remainingLabel: string;
-    triesSingular: string;
-    triesPlural: string;
-    footerText: string;
-  }
-> = {
-  en: {
+type TranslationStrings = {
+  headerAlreadyAccount: string;
+  headerGoWebsite: string;
+  titleLine1: string;
+  titleLine2: string;
+  spinButton: string;
+  remainingLabel: string;
+  triesSingular: string;
+  triesPlural: string;
+  footerText: string;
+};
+
+type PrizeLocale = {
+  big?: string;
+  percent?: string;
+  small?: string;
+  name?: string;
+};
+
+type LanguagePack = {
+  translations: TranslationStrings;
+  prizeText: Record<string, PrizeLocale>;
+};
+
+const enPack: LanguagePack = {
+  translations: {
     headerAlreadyAccount: 'Already have an account?',
     headerGoWebsite: 'Go to the website',
     titleLine1: 'SPIN THE WHEEL',
@@ -41,108 +53,50 @@ const translations: Record<
     triesPlural: 'TRIES',
     footerText: '© 2026 Mr Luna | All rights reserved'
   },
-  pt: {
-    headerAlreadyAccount: 'Já tem uma conta?',
-    headerGoWebsite: 'Ir para o site',
-    titleLine1: 'GIRE A RODA',
-    titleLine2: 'E RECEBA BÔNUS',
-    spinButton: 'GIRAR',
-    remainingLabel: 'RESTANTES',
-    triesSingular: 'TENTATIVA',
-    triesPlural: 'TENTATIVAS',
-    footerText: '© 2026 Mr Luna | Todos os direitos reservados'
-  },
-  es: {
-    headerAlreadyAccount: '¿Ya tienes una cuenta?',
-    headerGoWebsite: 'Ir al sitio web',
-    titleLine1: 'GIRA LA RULETA',
-    titleLine2: 'Y OBTÉN BONOS',
-    spinButton: 'GIRAR',
-    remainingLabel: 'RESTANTES',
-    triesSingular: 'INTENTO',
-    triesPlural: 'INTENTOS',
-    footerText: '© 2026 Mr Luna | Todos los derechos reservados'
-  },
-  ja: {
-    headerAlreadyAccount: 'すでにアカウントをお持ちですか？',
-    headerGoWebsite: 'サイトへ移動',
-    titleLine1: 'ホイールを回して',
-    titleLine2: 'ボーナスを獲得しよう',
-    spinButton: 'スピン',
-    remainingLabel: '残り',
-    triesSingular: '回',
-    triesPlural: '回',
-    footerText: '© 2026 Mr Luna | 無断複写・転載を禁じます'
-  },
-  ro: {
-    headerAlreadyAccount: 'Ai deja un cont?',
-    headerGoWebsite: 'Mergi la site',
-    titleLine1: 'ÎNVÂRTE ROATA',
-    titleLine2: 'ȘI PRIMEȘTE BONUSURI',
-    spinButton: 'ÎNVÂRTE',
-    remainingLabel: 'RĂMASE',
-    triesSingular: 'ÎNCERCARE',
-    triesPlural: 'ÎNCERCĂRI',
-    footerText: '© 2026 Mr Luna | Toate drepturile rezervate'
-  }
-};
-
-const prizeText: Record<
-  LanguageCode,
-  Record<
-    string,
-    {
-      big?: string;
-      percent?: string;
-      small?: string;
-      name?: string;
-    }
-  >
-> = {
-  en: {
+  prizeText: {
     'TRY AGAIN': { big: '', small: 'TRY AGAIN', name: 'TRY AGAIN' },
     '100% BONUS': { big: '100', percent: '%', small: 'BONUS', name: '100% BONUS' },
     '1000 FREE SPINS': { big: '1000', small: 'FREE SPINS', name: '1000 FREE SPINS' },
     '$100 CASH': { big: '$100', small: 'CASH', name: '$100 CASH' },
     'iPHONE 17': { big: '', small: 'iPHONE 17', name: 'iPHONE 17' }
-  },
-  pt: {
-    'TRY AGAIN': { big: '', small: 'TENTE NOVAMENTE', name: 'TENTE NOVAMENTE' },
-    '100% BONUS': { big: '100', percent: '%', small: 'BÔNUS', name: '100% BÔNUS' },
-    '1000 FREE SPINS': { big: '1000', small: 'GIROS GRÁTIS', name: '1000 GIROS GRÁTIS' },
-    '$100 CASH': { big: '$100', small: 'DINHEIRO', name: '$100 EM DINHEIRO' },
-    'iPHONE 17': { big: '', small: 'iPhone 17', name: 'iPhone 17' }
-  },
-  es: {
-    'TRY AGAIN': { big: '', small: 'INTÉNTALO DE NUEVO', name: 'INTÉNTALO DE NUEVO' },
-    '100% BONUS': { big: '100', percent: '%', small: 'BONO', name: 'BONO DEL 100%' },
-    '1000 FREE SPINS': { big: '1000', small: 'GIROS GRATIS', name: '1000 GIROS GRATIS' },
-    '$100 CASH': { big: '$100', small: 'EFECTIVO', name: '$100 EN EFECTIVO' },
-    'iPHONE 17': { big: '', small: 'iPhone 17', name: 'iPhone 17' }
-  },
-  ja: {
-    'TRY AGAIN': { big: '', small: 'もう一度', name: 'もう一度' },
-    '100% BONUS': { big: '100', percent: '%', small: 'ボーナス', name: '100%ボーナス' },
-    '1000 FREE SPINS': { big: '1000', small: 'フリースピン', name: '1000フリースピン' },
-    '$100 CASH': { big: '$100', small: '現金', name: '$100 現金' },
-    'iPHONE 17': { big: '', small: 'iPhone 17', name: 'iPhone 17' }
-  },
-  ro: {
-    'TRY AGAIN': { big: '', small: 'ÎNCEARCĂ DIN NOU', name: 'ÎNCEARCĂ DIN NOU' },
-    '100% BONUS': { big: '100', percent: '%', small: 'BONUS', name: 'BONUS 100%' },
-    '1000 FREE SPINS': { big: '1000', small: 'ROTIRI GRATUITE', name: '1000 ROTIRI GRATUITE' },
-    '$100 CASH': { big: '$100', small: 'BANI', name: '$100 CASH' },
-    'iPHONE 17': { big: '', small: 'iPhone 17', name: 'iPhone 17' }
   }
+};
+
+const languagePackLoaders: Record<Exclude<LanguageCode, 'en'>, () => Promise<{ default: LanguagePack }>> = {
+  pt: () => import('./i18n/pt.ts'),
+  es: () => import('./i18n/es.ts'),
+  ja: () => import('./i18n/ja.ts'),
+  ro: () => import('./i18n/ro.ts')
 };
 
 const isLanguageCode = (value: string): value is LanguageCode =>
   languages.some((lang) => lang.code === value);
 
+type PrizeItem = {
+  name: string;
+  big: string;
+  small: string;
+  icon: string;
+  color: string;
+  percent?: string;
+};
+
+const prizes: PrizeItem[] = [
+  { name: 'TRY AGAIN', big: '', small: 'TRY AGAIN', icon: 'iconsix', color: 'red' },
+  { name: '100% BONUS', big: '100', percent: '%', small: 'BONUS', icon: 'iconone', color: 'green' },
+  { name: '1000 FREE SPINS', big: '1000', small: 'FREE SPINS', icon: 'icontwo', color: 'purple' },
+  { name: '$100 CASH', big: '$100', small: 'CASH', icon: 'iconthree', color: 'purple' },
+  { name: 'TRY AGAIN', big: '', small: 'TRY AGAIN', icon: 'iconsix', color: 'purple' },
+  { name: 'iPHONE 17', big: '', small: 'iPHONE 17', icon: 'iconfour', color: 'purple' },
+  { name: '1000 FREE SPINS', big: '1000', small: 'FREE SPINS', icon: 'iconfive', color: 'purple' },
+  { name: '$100 CASH', big: '$100', small: 'CASH', icon: 'iconthree', color: 'purple' }
+];
+
 export default function Home() {
   const [loading, setLoading] = useState(true);
   const [spinning, setSpinning] = useState(false);
   const [tries, setTries] = useState(2);
+  const [languagePack, setLanguagePack] = useState<LanguagePack>(enPack);
   const [language, setLanguage] = useState<LanguageCode>(() => {
     if (typeof window === 'undefined') return 'en';
     const stored = window.localStorage.getItem('luna_language');
@@ -160,25 +114,37 @@ export default function Home() {
   const [prize, setPrize] = useState('');
   const [winningIndex, setWinningIndex] = useState(-1);
 
+  const initialLanguageRef = useRef<LanguageCode>(language);
   const langButtonRef = useRef<HTMLButtonElement | null>(null);
   const langMenuRef = useRef<HTMLDivElement | null>(null);
-
-  const prizes = [
-    { name: 'TRY AGAIN', big: '', small: 'TRY AGAIN', icon: 'iconsix', color: 'red' },
-    { name: '100% BONUS', big: '100', percent: '%', small: 'BONUS', icon: 'iconone', color: 'green' },
-    { name: '1000 FREE SPINS', big: '1000', small: 'FREE SPINS', icon: 'icontwo', color: 'purple' },
-    { name: '$100 CASH', big: '$100', small: 'CASH', icon: 'iconthree', color: 'purple' },
-    { name: 'TRY AGAIN', big: '', small: 'TRY AGAIN', icon: 'iconsix', color: 'purple' },
-    { name: 'iPHONE 17', big: '', small: 'iPHONE 17', icon: 'iconfour', color: 'purple' },
-    { name: '1000 FREE SPINS', big: '1000', small: 'FREE SPINS', icon: 'iconfive', color: 'purple' },
-    { name: '$100 CASH', big: '$100', small: 'CASH', icon: 'iconthree', color: 'purple' }
-  ];
+  const langMenuOpenRef = useRef(false);
 
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(false);
     }, 2000);
     return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    const initialLanguage = initialLanguageRef.current;
+    if (initialLanguage === 'en') return;
+
+    const loader = languagePackLoaders[initialLanguage];
+    if (!loader) {
+      return;
+    }
+
+    let cancelled = false;
+    void loader().then((mod) => {
+      if (!cancelled) {
+        setLanguagePack(mod.default);
+      }
+    });
+
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   useEffect(() => {
@@ -217,10 +183,14 @@ export default function Home() {
   }, [showRegistrationModal]);
 
   useEffect(() => {
+    langMenuOpenRef.current = langMenuOpen;
+  }, [langMenuOpen]);
+
+  useEffect(() => {
     const handler = (e: MouseEvent) => {
+      if (!langMenuOpenRef.current) return;
       const target = e.target as Node;
       if (
-        langMenuOpen &&
         langMenuRef.current &&
         !langMenuRef.current.contains(target) &&
         langButtonRef.current &&
@@ -231,10 +201,10 @@ export default function Home() {
     };
     document.addEventListener('mousedown', handler);
     return () => document.removeEventListener('mousedown', handler);
-  }, [langMenuOpen]);
+  }, []);
 
   const currentLanguage = languages.find((lang) => lang.code === language) ?? languages[0];
-  const t = translations[language];
+  const t = languagePack.translations;
 
   const spinWheel = () => {
     if (spinning || tries <= 0) return;
@@ -354,9 +324,20 @@ export default function Home() {
                         <button
                           type="button"
                           className="dropdown__button-item"
-                          onClick={() => {
-                            setLanguage(langOption.code);
+                          onClick={async () => {
+                            const nextLanguage = langOption.code;
                             setLangMenuOpen(false);
+                            if (nextLanguage === language) return;
+
+                            if (nextLanguage === 'en') {
+                              setLanguagePack(enPack);
+                              setLanguage('en');
+                              return;
+                            }
+
+                            const mod = await languagePackLoaders[nextLanguage]();
+                            setLanguagePack(mod.default);
+                            setLanguage(nextLanguage);
                           }}
                         >
                           <svg className="dropdown__flag" aria-hidden="true" width="16" height="16">
@@ -423,7 +404,7 @@ export default function Home() {
                   }}
                 >
                   {prizes.map((prizeItem, index) => {
-                    const prizeLocale = prizeText[language]?.[prizeItem.name];
+                    const prizeLocale = languagePack.prizeText[prizeItem.name];
                     const bigText = prizeLocale?.big ?? prizeItem.big ?? '';
                     const percentText = prizeLocale?.percent ?? prizeItem.percent;
                     const smallText = prizeLocale?.small ?? prizeItem.small;
